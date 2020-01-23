@@ -23,7 +23,7 @@ const (
 	ASTERISK = "*"
 	SLASH    = "/"
 
-	EQ = "=="
+	EQ     = "=="
 	NOT_EQ = "!="
 
 	LT = "<"
