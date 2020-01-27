@@ -75,7 +75,7 @@ type Identifier struct {
 	Value string
 }
 
-func (i *Identifier) expresionNode() {
+func (i *Identifier) expressionNode() {
 }
 
 func (i *Identifier) TokenLiteral() string {
