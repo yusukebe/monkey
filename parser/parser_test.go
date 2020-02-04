@@ -196,7 +196,7 @@ func TestParsingPrefixExpressions(t *testing.T) {
 		}
 
 		stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
-	
+
 		if !ok {
 			t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
 				program.Statements[0])
@@ -210,8 +210,8 @@ func TestParsingPrefixExpressions(t *testing.T) {
 			t.Fatalf("exp.Operator is not '%s'. got=%s", tt.operator, exp.Operator)
 		}
 
-		if !testLiteralExpression (t, exp.Right, tt.value) {
-		 	return
+		if !testLiteralExpression(t, exp.Right, tt.value) {
+			return
 		}
 	}
 }
@@ -253,7 +253,7 @@ func TestParsingInfixExpression(t *testing.T) {
 			t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
 				program.Statements[0])
 		}
-		
+
 		if testInfixExpression(t, stmt.Expression, tt.leftValue, tt.operator, tt.rightValue) {
 			return
 		}
@@ -309,6 +309,26 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"3 + 4 * 5 == 3 * 1 + 4 * 5",
 			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
 		},
+		{
+			"1 + (2 + 3) + 4",
+			"((1 + (2 + 3)) + 4)",
+		},
+		{
+			"(5 + 5) * 2",
+			"((5 + 5) * 2)",
+		},
+		{
+			"2 / (5 + 5)",
+			"(2 / (5 + 5))",
+		},
+		{
+			"-(5 + 5)",
+			"(-(5 + 5))",
+		},
+		{
+			"!(true == true)",
+			"(!(true == true))",
+		},
 	}
 
 	for _, tt := range tests {
@@ -349,10 +369,10 @@ func TestBooleanExpression(t *testing.T) {
 			t.Fatalf("program has not enough statements. got=%d", len(program.Statements))
 		}
 		stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
-		
+
 		if !ok {
 			t.Fatalf("program.Statement[0] is not ast.ExpressionStatement. got=%T",
-		 		program.Statements[0])
+				program.Statements[0])
 		}
 
 		if !testLiteralExpression(t, stmt.Expression, tt.expected) {
@@ -400,7 +420,7 @@ func testIdentifier(t *testing.T, exp ast.Expression, value string) bool {
 	return true
 }
 
-func testLiteralExpression(t *testing.T,exp ast.Expression, expected interface{}) bool {
+func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{}) bool {
 	switch v := expected.(type) {
 	case int:
 		return testIntegerLiteral(t, exp, int64(v))
