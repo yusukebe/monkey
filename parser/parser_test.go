@@ -44,7 +44,7 @@ func TestLetStatements(t *testing.T) {
 
 func TestReturnStatement(t *testing.T) {
 	tests := []struct {
-		input string
+		input         string
 		expectedValue interface{}
 	}{
 		{"return 5", 5},
