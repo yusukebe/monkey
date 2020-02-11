@@ -27,7 +27,7 @@ func (i *Integer) Type() ObjectType {
 }
 
 func (i *Integer) Inspect() string {
-	fmt.Sprintf("%d", i.Value)
+	return fmt.Sprintf("%d", i.Value)
 }
 
 // Boolean
@@ -40,7 +40,7 @@ func (b *Boolean) Type() ObjectType {
 }
 
 func (b *Boolean) Inspect() string {
-	fmt.Sprintf("%t", b.Value)
+	return fmt.Sprintf("%t", b.Value)
 }
 
 // Null
