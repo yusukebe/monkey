@@ -7,6 +7,7 @@ import (
 	"monkey/evaluator"
 	"monkey/lexer"
 	"monkey/parser"
+	"monkey/object"
 )
 
 const PROMPT = ">>"
@@ -29,6 +30,7 @@ func Start(in io.Reader, out io.Writer) {
 	for {
 		fmt.Printf(PROMPT)
 		scanned := scanner.Scan()
+		env := object.NewEnvironment()
 		if !scanned {
 			return
 		}
@@ -43,7 +45,7 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 
-		evaluated := evaluator.Eval(progaram)
+		evaluated := evaluator.Eval(progaram, env)
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
