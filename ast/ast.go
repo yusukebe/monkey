@@ -30,6 +30,11 @@ type IntegerLiteral struct {
 	Value int64
 }
 
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
 func (p *Program) TokenLiteral() string {
 	if len(p.Statements) > 0 {
 		return p.Statements[0].TokenLiteral()
@@ -143,6 +148,11 @@ func (es *ExpressionStatement) String() string {
 func (il *IntegerLiteral) expressionNode()      {}
 func (il *IntegerLiteral) TokenLiteral() string { return il.Token.Literal }
 func (il *IntegerLiteral) String() string       { return il.Token.Literal }
+
+// StringLiteral
+func (sl *StringLiteral) expressionNode()      {}
+func (sl *StringLiteral) TokenLiteral() string { return sl.Token.Literal }
+func (sl *StringLiteral) String() string       { return sl.Token.Literal }
 
 // PrefixExpression
 type PrefixExpression struct {
