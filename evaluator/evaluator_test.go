@@ -371,6 +371,23 @@ func TestBuiltinFunctions(t *testing.T) {
 	}
 }
 
+func TestBuiltinPushArrayExpression(t *testing.T) {
+	input := `push([1, 2, 3], 4)`
+	evaluated := testEval(input)
+	result, ok := evaluated.(*object.Array)
+	if !ok {
+		t.Errorf("object is not Array. got=%T (%+v)", evaluated, evaluated)
+	}
+	if len(result.Elements) != 4 {
+		t.Errorf("array has wrong num of elements, got=%d", len(result.Elements))
+	}
+
+	testIntegerObject(t, result.Elements[0], int64(1))
+	testIntegerObject(t, result.Elements[1], int64(2))
+	testIntegerObject(t, result.Elements[2], int64(3))
+	testIntegerObject(t, result.Elements[3], int64(4))
+}
+
 func TestArrayLiterals(t *testing.T) {
 	input := "[1, 2 * 2, 3 + 3]"
 
